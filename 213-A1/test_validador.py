@@ -3,7 +3,6 @@
 """
     Módulo prueba unitaria code_token
 """
-from lxml import etree
 import validador
 
 def test_validar_xml():
@@ -12,7 +11,5 @@ def test_validar_xml():
     """
     xml_doc_ini = validador.obtener_documento_parseado("carta.xml")
     xsd_doc_ini = validador.obtener_documento_parseado("carta.xsd")
-    
     result = validador.validar_xml(xml_doc_ini, xsd_doc_ini)
-
-    assert result == True
+    assert result is True
