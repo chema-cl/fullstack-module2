@@ -9,19 +9,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5 
       - name: Install dependencies
         run:
             python -m pip install --upgrade pip
             pip install pylint pytest flask            
-      - name: Run Install Script
+      - name: Concede permisos de ejecución a sh de instalación de dependencias
         run: 
             chmod +x install_requirements.sh
+      - name: Run Install Script
+        run: 
             ./install_requirements.sh            
       - name: Pylint
         run:  |
-            find . -name "*.py" -type f -print0 | xargs -0 pylint
+            find . -type f -name "*.py" -print0 | xargs -0 pylint
       - name: Pytest
         run: |
-            find . -name "test_*.py" -type f -print0 | xargs -0 pytest
+            find . -type f -name "test_*.py" -print0 | xargs -0 pytest
                 
