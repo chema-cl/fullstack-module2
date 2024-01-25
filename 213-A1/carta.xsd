@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- definición de elementos simples -->
+<xs:element name="nombre" type="xs:string"/>
+<xs:element name="apellidos" type="xs:string"/>
+<xs:element name="saludo" type="xs:string"/>
+<xs:element name="parrafo" type="xs:string"/>
+<xs:element name="firma" type="xs:string"/>
+<xs:element name="post_data" type="xs:string"/>
+
+<!-- definitión de tributos -->
+<xs:attribute name="direccion" type="xs:string"/>
+<xs:attribute name="provincia" type="xs:string"/>
+<xs:attribute name="localidad" type="xs:string"/>
+<xs:attribute name="codigo_postal" type="xs:string"/>
+
+<!-- definición de elementos complejos -->
+<xs:element name="remitente">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="nombre"/>
+      <xs:element ref="apellidos"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="destinatario">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="nombre"/>
+      <xs:element ref="apellidos"/>
+    </xs:sequence>
+  <xs:attribute ref="direccion" use="required"/>
+  <xs:attribute ref="provincia" use="required"/>
+  <xs:attribute ref="localidad" use="required"/>
+  <xs:attribute ref="codigo_postal" use="required"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="cuerpo">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="saludo"/>
+      <xs:element ref="parrafo" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element ref="firma"/>
+      <xs:element ref="post_data" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="carta">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref="remitente"/>
+      <xs:element ref="destinatario"/>
+      <xs:element ref="cuerpo"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

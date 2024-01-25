@@ -1,0 +1,27 @@
+{
+    "carta": {
+        "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+        "@xsi:noNamespaceSchemaLocation": "carta.xsd",
+        "remitente": {
+            "nombre": "José",
+            "apellidos": "Rodríguez Márquez"
+        },
+        "destinatario": {
+            "@direccion": "Calle Castillo n22",
+            "@provincia": "Huelva",
+            "@localidad": "Moguer",
+            "@codigo_postal": "21800",
+            "nombre": "Cristina",
+            "apellidos": "López Moreno"
+        },
+        "cuerpo": {
+            "saludo": "Buenos días",
+            "parrafo": [
+                "Voy a contarte un larga historia acerca del origen del cola-cao.",
+                "El perro de San Roque no tiene rabo, porque Ramón Ramírez se lo ha cortado, y al perro de Romón Ramírez ¿Quien el rabo le ha cortado?"
+            ],
+            "firma": "Chema",
+            "post_data": "Espero que nos veamos pronto"
+        }
+    }
+}
