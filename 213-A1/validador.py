@@ -34,12 +34,13 @@ def validar_xml(xml_doc, xsd_doc):
 
     :param xml_doc (str): Documento XML.
     :param xsd_doc (str): Contenido fichero XSD (esquema) de validación.
-
+    
+    :return True ok False no Ok
     """
     print("- Comienza la validación")
     # Creamos un validador XML
     xml_validator = etree.XMLSchema(xsd_doc)
-
+    validado = True
     # Validamos el documento XML contra el esquema XSD
     if xml_validator.validate(xml_doc):
         print(
@@ -47,6 +48,7 @@ def validar_xml(xml_doc, xsd_doc):
             + f"{Fore.BLUE}{Style.BRIGHT}es válido{Style.RESET_ALL} según el esquema XSD."
         )
     else:
+        validado = False
         print(
             "    El documento XML "
             + f"{Fore.RED}{Style.BRIGHT}no es válido{Style.RESET_ALL} según el esquema XSD."
@@ -54,7 +56,7 @@ def validar_xml(xml_doc, xsd_doc):
         print(f"{Fore.RED}{Style.BRIGHT}Errores:{Style.RESET_ALL}")
         for error in xml_validator.error_log:
             print(f"- Linea {error.line}, Columna {error.column}: {error.message}")
-
+    return validado
 
 def obtener_valores_xml(xml_doc, xpath):
     """
@@ -109,14 +111,12 @@ def xml_a_json(xml_doc):
         print(json_content)
         with open("salida.json", "w", encoding="utf-8") as file:
             file.write(json_content)
-
     except xmltodict.expat.ExpatError as expat_err:
         print(
             f"    {Fore.RED}Error{Style.RESET_ALL} en el análisis XML con xmltodict: {expat_err}"
         )
     except json.JSONDecodeError as json_err:
         print(f"    {Fore.RED}Error{Style.RESET_ALL} al decodificar JSON: {json_err}")
-
 
 def str2bool(v):
     """
