@@ -4,12 +4,9 @@
     Módulo prueba unitaria code_token
 """
 import unittest
-import validador
 from unittest.mock import patch
-from io import StringIO
-import sys
-import os
 from lxml import etree
+import validador
 
 class TestCodeToken(unittest.TestCase):
     """
