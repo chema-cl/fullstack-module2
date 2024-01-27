@@ -7,9 +7,6 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 
-# Ruta al fichero api_doc.yaml generado
-API_SPEC_PATH = "/ruta/a/tu/api_doc.yaml"
-
 # Configuración para la documentación Swagger UI
 SWAGGER_URL = "/api/docs"
 API_URL = "/services/spec"
