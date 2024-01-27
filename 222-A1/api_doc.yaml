@@ -8,15 +8,17 @@ servers:
   - url: https://jsonplaceholder.typicode.com
 tags:
   - name: post
-    description: Operaciones con los recursos POST de la API
-
+    description: Operaciones con publicaciones
+  - name: comment
+    description: Comentarios
+    
 paths:
   /posts:
     get:
       tags:
         - post
-      summary: Busca un posts
-      description: Busca todos los posts y permite filtrarlos por usuario
+      summary: Busca publicaciones
+      description: Busca todos las publicaciones y permite filtrarlas por usuario
       operationId: getposts
       parameters:
         - name: userId
@@ -42,11 +44,11 @@ paths:
     post:
       tags:
         - post
-      summary: Crear un post
-      description: Crear un post
+      summary: Crear una publicación
+      description: Crear una publicación
       operationId: createpost
       requestBody:
-        description: Crea un post
+        description: Publicación creada
         content:
           application/json:
             schema:
@@ -69,13 +71,13 @@ paths:
     get:
       tags:
         - post
-      summary: Busca un post existente
-      description: Busca un post existente
+      summary: Busca una publicación
+      description: Busca una publicación existente
       operationId: getpostById
       parameters:
         - name: postId
           in: path
-          description: ID post a obtener
+          description: ID publicación a obtener
           required: true
           schema:
             type: integer
@@ -94,13 +96,13 @@ paths:
     put:
       tags:
         - post
-      summary: Actualiza un post existente
-      description: Actualiza un post existente
+      summary: Actualiza una publicación
+      description: Actualiza una publicación existente
       operationId: updatepostById
       parameters:
         - name: postId
           in: path
-          description: ID post a actualizar
+          description: ID publicación a actualizar
           required: true
           schema:
             type: integer
@@ -128,13 +130,158 @@ paths:
     delete:
       tags:
         - post
-      summary: Borra un post existente
-      description: Borra un post existente
+      summary: Borra una publicación
+      description: Borra una publicación existente
       operationId: deletepostById
       parameters:
         - name: postId
           in: path
-          description: ID post a borrar
+          description: ID publicación a borrar
+          required: true
+          schema:
+            type: integer
+            format: int64      
+      responses:
+        '200':
+          description: Operación exitosa
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+  /comments:
+    get:
+      tags:
+        - comment
+      summary: Busca comentarios
+      description: Busca todos los comentarios
+      operationId: getcomments
+      parameters:
+        - name: postId
+          in: query
+          description: Identificador del post
+          required: false
+          schema:
+            type: integer
+            format: int64      
+        - name: name
+          in: query
+          description: Nombre
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: email
+          schema:
+            type: string	
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+    post:
+      tags:
+        - comment
+      summary: Crear una comentario
+      description: Crear una comentario
+      operationId: createcomment
+      requestBody:
+        description: Comentario creado
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+        '422':
+          description: Error de validación  
+  /comments/{commentId}:
+    get:
+      tags:
+        - comment
+      summary: Busca un comentario
+      description: Busca un comentario existente
+      operationId: getcommentById
+      parameters:
+        - name: commentId
+          in: path
+          description: ID comentario a obtener
+          required: true
+          schema:
+            type: integer
+            format: int64      
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+    put:
+      tags:
+        - comment
+      summary: Actualiza un comentario
+      description: Actualiza un comentario existente
+      operationId: updatecommentById
+      parameters:
+        - name: commentId
+          in: path
+          description: ID comentario a actualizar
+          required: true
+          schema:
+            type: integer
+            format: int64      
+      requestBody:
+        description: Actualiza un comment existente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+      responses:
+        '200':
+          description: Opeación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+        '422':
+          description: Error de validación
+    delete:
+      tags:
+        - comment
+      summary: Borra un comentario
+      description: Borra un comentario existente
+      operationId: deletecommentById
+      parameters:
+        - name: commentId
+          in: path
+          description: ID comentario a borrar
           required: true
           schema:
             type: integer
@@ -150,6 +297,7 @@ components:
   schemas:
     post:
       type: object
+      description: Publicación
       properties:
         id:
           type: integer
@@ -165,3 +313,25 @@ components:
         body:
           type: string
           format: "Body de ejemplo"          
+    comment:
+      type: object
+      description: Comentario
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        postId:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: "Juan Gómez"
+        email:
+          type: string
+          example: "ppppp@gmail.com"          
+        body:
+          type: string
+          format: "Comentario...."          
+
