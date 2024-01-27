@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Swagger Fullstack - OpenAPI 3.0
+  description: |-
+    Mock API documentation
+  version: 1.0.0
+servers:
+  - url: https://jsonplaceholder.typicode.com
+tags:
+  - name: post
+    description: Operaciones con los recursos POST de la API
+
+paths:
+  /posts:
+    get:
+      tags:
+        - post
+      summary: Busca un posts
+      description: Busca todos los posts y permite filtrarlos por usuario
+      operationId: getposts
+      parameters:
+        - name: userId
+          in: query
+          description: Identificador usuario
+          required: false
+          schema:
+            type: integer
+            format: int64      
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/post'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+    post:
+      tags:
+        - post
+      summary: Crear un post
+      description: Crear un post
+      operationId: createpost
+      requestBody:
+        description: Crea un post
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post'
+        required: true
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+        '422':
+          description: Error de validación  
+  /posts/{postId}:
+    get:
+      tags:
+        - post
+      summary: Busca un post existente
+      description: Busca un post existente
+      operationId: getpostById
+      parameters:
+        - name: postId
+          in: path
+          description: ID post a obtener
+          required: true
+          schema:
+            type: integer
+            format: int64      
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+    put:
+      tags:
+        - post
+      summary: Actualiza un post existente
+      description: Actualiza un post existente
+      operationId: updatepostById
+      parameters:
+        - name: postId
+          in: path
+          description: ID post a actualizar
+          required: true
+          schema:
+            type: integer
+            format: int64      
+      requestBody:
+        description: Actualiza un post existente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post'
+        required: true
+      responses:
+        '200':
+          description: Opeación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+        '422':
+          description: Error de validación
+    delete:
+      tags:
+        - post
+      summary: Borra un post existente
+      description: Borra un post existente
+      operationId: deletepostById
+      parameters:
+        - name: postId
+          in: path
+          description: ID post a borrar
+          required: true
+          schema:
+            type: integer
+            format: int64      
+      responses:
+        '200':
+          description: Operación exitosa
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+components:
+  schemas:
+    post:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        userId:
+          type: integer
+          format: int64
+          example: 10
+        title:
+          type: string
+          example: "Título de ejemplo"
+        body:
+          type: string
+          format: "Body de ejemplo"          

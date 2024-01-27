@@ -1,0 +1,7 @@
+{
+    "method": "GET",
+    "url": "https://jsonplaceholder.typicode.com/posts/3",
+    "status": 200,
+    "content-type": "application/json; charset=utf-8",
+    "encoding": "utf-8"
+}
