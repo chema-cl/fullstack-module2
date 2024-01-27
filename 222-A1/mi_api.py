@@ -16,7 +16,7 @@ API_URL = "/services/spec"
 swagger_ui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
-    config={"app_name": "API Documentation"}
+    config={"app_name": "API Master Fullstack 222-A1"}
 )
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
