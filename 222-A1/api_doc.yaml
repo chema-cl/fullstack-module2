@@ -10,7 +10,7 @@ tags:
   - name: post
     description: Operaciones con publicaciones
   - name: comment
-    description: Comentarios
+    description: Operaciones con comentarios
     
 paths:
   /posts:
@@ -108,7 +108,7 @@ paths:
             type: integer
             format: int64      
       requestBody:
-        description: Actualiza un post existente
+        description: Actualiza una publicación existente
         content:
           application/json:
             schema:
@@ -158,7 +158,7 @@ paths:
       parameters:
         - name: postId
           in: query
-          description: Identificador del post
+          description: Identificador de la publicación
           required: false
           schema:
             type: integer
