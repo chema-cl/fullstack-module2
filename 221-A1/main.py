@@ -9,6 +9,22 @@ import json_tools
 import api_tools
 
 
+def check_method_param(value):
+    """
+    Evalúa si el parátro método es correcto
+    insensible a mayúsculas y minúsculas
+    """
+    choices = ["GET", "POST", "PUT", "DELETE"]
+    for choice in choices:
+        if value.upper() == choice.upper():
+            return choice.upper()
+    # Si no se encuentra, generar un mensaje de error
+    raise argparse.ArgumentTypeError(
+        f"Opción {Fore.RED}{value}{Style.RESET_ALL} no es válida, valores váidos "
+        + f"{Fore.GREEN}{choices}{Style.RESET_ALL}"
+    )
+
+
 def main():
     """
     Función main utilizada para consumir la API
@@ -19,7 +35,7 @@ def main():
     parser.add_argument(
         "--method",
         required=True,
-        choices=["GET", "POST", "PUT", "DELETE"],
+        type=check_method_param,
         help="Método",
     )
     parser.add_argument(
@@ -31,11 +47,13 @@ def main():
 
     if args.method in ["PUT", "DELETE"] and args.resource_id is None:
         parser.error(
-            "El parámetro --resource_id es obligatorio para los métodos PUT y DELETE."
+            f"El parámetro {Fore.RED}--resource_id{Style.RESET_ALL} es "
+            + f"obligatorio para los métodos {Fore.BLUE}PUT y DELETE.{Style.RESET_ALL}"
         )
     if args.method in ["POST"] and args.resource_id is not None:
         parser.error(
-            "El parámetro --resource_id no está permitido para el método POST."
+            f"El parámetro {Fore.RED}--resource_id{Style.RESET_ALL} "
+            + f"no está permitido para el método {Fore.RED}POST.{Style.RESET_ALL}"
         )
 
     # Leer configuración

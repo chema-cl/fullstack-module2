@@ -55,7 +55,7 @@ paths:
               $ref: '#/components/schemas/post'
         required: true
       responses:
-        '200':
+        '201':
           description: Operación exitosa
           content:
             application/json:
@@ -200,7 +200,7 @@ paths:
               $ref: '#/components/schemas/comment'
         required: true
       responses:
-        '200':
+        '201':
           description: Operación exitosa
           content:
             application/json:

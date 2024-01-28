@@ -1,6 +1,6 @@
 {
-    "method": "GET",
-    "url": "https://jsonplaceholder.typicode.com/posts/3",
+    "method": "PUT",
+    "url": "https://jsonplaceholder.typicode.com/comments/44",
     "status": 200,
     "content-type": "application/json; charset=utf-8",
     "encoding": "utf-8"
