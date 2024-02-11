@@ -1,0 +1,25 @@
+basedatos:
+  path: database/almacen.db
+  consumidor_almacen: almacen
+  consumidor_almacen_key: 16cd4e0b6209bfc1d571db74ed7f4519
+  articulos:
+    - codigo: "BOLI"
+      descripcion: "Boli"
+      stock: 100
+      stock_min: 2
+      activo: true
+    - codigo: "LAPIZ"
+      descripcion: "Lápiz"
+      stock: 100
+      stock_min: 2
+      activo: true  
+    - codigo: "GOMA"
+      descripcion: "Goma"
+      stock: 100
+      stock_min: 2
+      activo: true
+    - codigo: "LIBRETA"
+      descripcion: "Libreta"
+      stock: 100
+      stock_min: 2
+      activo: true
