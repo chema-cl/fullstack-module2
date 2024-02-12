@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E0401
+# pylint: disable=R0801
 """
     Módulo de operaciones en el alamacen   
 """
