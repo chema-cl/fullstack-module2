@@ -173,9 +173,10 @@ class AlmacenTools:
                 )
 
             if int(articulos[0]["stock"]) < int(cantidad):
+                stock = articulos[0]["stock"]
                 raise ValueError(
                     "No disponemos de stock suficiente para atender su petición, " +
-                    f"stock disponible {articulos[0]["stock"]}"
+                    f"stock disponible {stock}"
                 )
             if bool(articulos[0]["activo"]) is False:
                 raise ValueError(
