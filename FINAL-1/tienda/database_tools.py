@@ -39,10 +39,8 @@ class DatabaseTools:
             return self.conn
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
 
     def select_from_table(self, table, parametros):
         """
@@ -71,15 +69,13 @@ class DatabaseTools:
             results = [
                 dict(zip(columnas, fila)) for fila in cursor.fetchall()
             ]  # Crear un diccionario para cada fila
-            self.conn.close()           
+            self.conn.close()
 
             return results
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
 
     def insert_into_table(self, table, parametros):
         """
@@ -108,17 +104,15 @@ class DatabaseTools:
             cursor = self.obtener_conexion().cursor()
             cursor.execute(sql_query, params)
             self.conn.commit()
-            self.conn.close()            
+            self.conn.close()
 
             parametros_select = {}
             parametros_select = {"id": nuevo_id}
             return self.select_from_table(table, parametros_select)
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
 
     def update_table(self, table, parametros_update, parametros_where):
         """
@@ -129,7 +123,7 @@ class DatabaseTools:
         :parametros_where(lista clave valor) parámetros where
         """
         try:
-            #del parametros_update["id"]
+            # del parametros_update["id"]
             # Construir la consulta UPDATE con los parámetros de actualización
             # y los parámetros de condición
             sql_query = f"UPDATE {table} SET "
@@ -149,15 +143,13 @@ class DatabaseTools:
             cursor = self.obtener_conexion().cursor()
             cursor.execute(sql_query, params)
             self.conn.commit()
-            self.conn.close()            
+            self.conn.close()
 
             return self.select_from_table(table, parametros_where)
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
 
     def delete_table(self, table, parametros_where):
         """
@@ -166,7 +158,7 @@ class DatabaseTools:
         :param table(str) nombre de la tabla
         :parametros_where(lista clave valor) parámetros where
         """
-        try:            
+        try:
             # Construir la consulta UPDATE con los parámetros de actualización
             # y los parámetros de condición
             sql_query = f"DELETE FROM {table} "
@@ -182,13 +174,11 @@ class DatabaseTools:
             cursor = self.obtener_conexion().cursor()
             cursor.execute(sql_query, params)
             self.conn.commit()
-            self.conn.close()            
+            self.conn.close()
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
 
     def update_table_set_string(self, table, set_string, parametros_where):
         """
@@ -213,15 +203,13 @@ class DatabaseTools:
             cursor = self.obtener_conexion().cursor()
             cursor.execute(sql_query, params)
             self.conn.commit()
-            self.conn.close()            
+            self.conn.close()
 
             return self.select_from_table(table, parametros_where)
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
 
     def execute_query(self, sql_query):
         """
@@ -233,10 +221,8 @@ class DatabaseTools:
             cursor = self.obtener_conexion().cursor()
             cursor.execute(sql_query)
             self.conn.commit()
-            self.conn.close()            
+            self.conn.close()
         except Exception as error:
             self.conn.rollback()
-            self.conn.close()            
-            raise RuntimeError(
-                "Error al ejecutar la consulta SQL: " + error.sqlite_errorname
-            ) from error
+            self.conn.close()
+            raise error
