@@ -1,0 +1,13 @@
+openapi: 3.0.3
+info:
+  title: Swagger Fullstack - OpenAPI 3.0
+  description: |-
+    API Almacén
+  version: 1.0.0
+servers:
+  - url: /
+tags:
+  - name: articulo
+    description: Altículos del almacén
+  - name: consumidor
+    description: Consumidores de la aplicación

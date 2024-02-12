@@ -6,11 +6,31 @@
     Módulo API REST almacen
 """
 import argparse
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
+from flask_swagger_ui import get_swaggerui_blueprint
 from almacen_tools import AlmacenTools
 from parameter_tools import ParameterTools
 
 app = Flask(__name__)
+
+SWAGGER_URL = "/api/docs"
+API_URL = "/services/spec"
+API_YML = "api_doc.yml"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL, API_URL, config={"almacen": "API Almacén"}
+)
+
+app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+
+
+# Ruta para servir el contenido del fichero api_doc.yaml
+@app.route(API_URL)
+def api_spec():
+    """
+    indicamos al servidor de swagger dónde esta nuestro fichero yml
+    """
+    return send_from_directory(".", API_YML, as_attachment=True)
 
 
 # Servicios CRUD básicos para administración de artículos

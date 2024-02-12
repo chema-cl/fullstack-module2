@@ -1,0 +1,15 @@
+openapi: 3.0.3
+info:
+  title: Swagger Fullstack - OpenAPI 3.0
+  description: |-
+    API Tienda
+  version: 1.0.0
+servers:
+  - url: /
+tags:
+  - name: producto
+    description: Producto de la tienda
+  - name: consumidor
+    description: Consumidores de la aplicación
+
+    
