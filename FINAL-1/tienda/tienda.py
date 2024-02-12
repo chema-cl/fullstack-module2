@@ -76,7 +76,7 @@ def crear_producto():
         results = TiendaTools().crea_producto(request.json)
 
         # Devolvemos mensaje de éxito
-        return jsonify({"productos": results})
+        return jsonify({"productos": results}), 201
 
     except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400

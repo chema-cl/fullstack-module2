@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E0401
+# pylint: disable=W0718
 """
     Módulo API REST almacen
 """
 import argparse
 from flask import Flask, request, jsonify
-import almacen_tools
+from almacen_tools import AlmacenTools
+from parameter_tools import ParameterTools
 
 app = Flask(__name__)
 
@@ -19,7 +21,7 @@ def obtener_articulos():
     try:
         # Verifica la clave de API
         api_key = request.headers.get("X-API-Key")
-        if not almacen_tools.check_consumidor_valido(api_key):
+        if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
 
         # Posibles parámetros que se puede recibir para la query
@@ -28,16 +30,14 @@ def obtener_articulos():
             "activo": bool,
         }
         # Carga los parámetros recibidos en la llamada
-        parametros = almacen_tools.parameter_tools.carga_parametros_request(
+        parametros = ParameterTools().carga_parametros_request(
             parametros_request, request
         )
         # Buscamos en base de datos
-        results = almacen_tools.select_articulos(parametros)
+        results = AlmacenTools().select_articulos(parametros)
         # Devolvemos el resultado en un json
         return jsonify({"articulos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -51,19 +51,17 @@ def obtener_articulo(codigo_articulo):
     try:
         # Verifica la clave de API
         api_key = request.headers.get("X-API-Key")
-        if not almacen_tools.check_consumidor_valido(api_key):
+        if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
 
         # inicializa el parámetro de la query
         parametros = {}
         parametros["codigo"] = codigo_articulo
         # Lanza la búsqueda
-        results = almacen_tools.select_articulos(parametros)
+        results = AlmacenTools().select_articulos(parametros)
         # Devuelve el resultado en JSON
         return jsonify({"articulos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -75,17 +73,15 @@ def crear_articulo():
     try:
         # Verifica la clave de API
         api_key = request.headers.get("X-API-Key")
-        if not almacen_tools.check_consumidor_valido(api_key):
+        if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
         # Creamos el artículo
-        results = almacen_tools.crea_articulo(request.json)
+        results = AlmacenTools().crea_articulo(request.json)
 
         # Devolvemos mensaje de éxito
-        return jsonify({"articulos": results})
+        return jsonify({"articulos": results}), 201
 
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -99,15 +95,13 @@ def actualizar_articulo(codigo_articulo):
     try:
         # Verifica la clave de API
         api_key = request.headers.get("X-API-Key")
-        if not almacen_tools.check_consumidor_valido(api_key):
+        if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
         # Lanza la actualización en base de datos
-        results = almacen_tools.actualiza_articulo(request.json, codigo_articulo)
+        results = AlmacenTools().actualiza_articulo(request.json, codigo_articulo)
         # Devuelve el resultado en JSON
         return jsonify({"articulos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -121,7 +115,7 @@ def recibir_articulo():
     try:
         # Verifica la clave de API
         api_key = request.headers.get("X-API-Key")
-        if not almacen_tools.check_consumidor_valido(api_key):
+        if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
 
         parametros_request = {
@@ -129,7 +123,7 @@ def recibir_articulo():
             "cantidad": int,
         }
         # Carga los parámetros recibidos en la llamada
-        parametros = almacen_tools.parameter_tools.carga_parametros_request(
+        parametros = ParameterTools().carga_parametros_request(
             parametros_request, request
         )
         if parametros.get("codigo") is None or parametros.get("cantidad") is None:
@@ -139,14 +133,12 @@ def recibir_articulo():
             )
 
         # Lanza la actualización en base de datos
-        results = almacen_tools.actualiza_entrada_stock(
+        results = AlmacenTools().actualiza_entrada_stock(
             parametros["codigo"], parametros["cantidad"]
         )
         # Devuelve el resultado en JSON
         return jsonify({"articulos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -159,7 +151,7 @@ def vender_articulo():
     try:
         # Verifica la clave de API
         api_key = request.headers.get("X-API-Key")
-        if not almacen_tools.check_consumidor_valido(api_key):
+        if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
 
         parametros_request = {
@@ -167,7 +159,7 @@ def vender_articulo():
             "cantidad": int,
         }
         # Carga los parámetros recibidos en la llamada
-        parametros = almacen_tools.parameter_tools.carga_parametros_request(
+        parametros = ParameterTools().carga_parametros_request(
             parametros_request, request
         )
         if parametros.get("codigo") is None or parametros.get("cantidad") is None:
@@ -177,14 +169,12 @@ def vender_articulo():
             )
 
         # Lanza la actualización en base de datos
-        results = almacen_tools.actualiza_salida_stock(
+        results = AlmacenTools().actualiza_salida_stock(
             parametros["codigo"], parametros["cantidad"]
         )
         # Devuelve el resultado en JSON
         return jsonify({"articulos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -209,6 +199,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Inicializar la base de datos al arrancar la aplicación
+    almacen_tools = AlmacenTools()
+
     almacen_tools.inicializar_almacen(args.config)
 
     app.run(host=args.servidor, port=args.puerto, debug=True)
