@@ -117,7 +117,7 @@ def actualiza_salida_stock(codigo, cantidad):
 
         if int(articulos[0]["stock"]) < int(cantidad):
             raise ValueError(
-                "No disponemos de stock suficiente para atender su petición, "
+                "No disponemos de stock suficiente para atender su petición, " +
                 f"stock disponible {articulos[0]["stock"]}"
             )
         if bool(articulos[0]["activo"]) is False:

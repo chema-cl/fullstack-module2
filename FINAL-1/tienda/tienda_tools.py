@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E0401
+# pylint: disable=W0718
 """
     Utilidades para trabajar con la tienda
 """
 
 import os
 import json
-import traceback
 import yaml
 import requests
 from database_tools import DatabaseTools
@@ -56,84 +56,113 @@ class TiendaTools:
             cls.API_ALMACEN_COMPRAR = config["api_almacen_comprar"]
 
             if not os.path.exists(database_path):
-
-                db_operations = DatabaseTools()
-
-                query_crea_consumidores = (
-                    "CREATE TABLE IF NOT EXISTS consumidores ("
-                    "id TEXT PRIMARY KEY,"
-                    "codigo TEXT UNIQUE NOT NULL,"
-                    "descripcion TEXT,"
-                    "activo BOOLEAN )"
+                cls._crear_tablas(
+                    cls,
+                    config["basedatos"]["consumidor_tienda"],
+                    config["basedatos"]["consumidor_tienda_key"],
                 )
 
-                db_operations.execute_query(query_crea_consumidores)
+            cls._reponer_tienda_desde_alamcen(2)
 
-                parametros = {}
-                parametros["codigo"] = config["basedatos"]["consumidor_tienda_key"]
-                parametros["descripcion"] = config["basedatos"]["consumidor_tienda"]
-                parametros["activo"] = True
-
-                db_operations.insert_into_table("consumidores", parametros)
-
-                query_crea_tabla_productos = (
-                    "CREATE TABLE IF NOT EXISTS productos ("
-                    "id TEXT PRIMARY KEY,"
-                    "codigo TEXT UNIQUE NOT NULL,"
-                    "descripcion TEXT,"
-                    "precio DOUBLE,"
-                    "stock INTEGER,"
-                    "vendidos INTEGER,"
-                    "activo BOOLEAN )"
-                )
-
-                db_operations.execute_query(query_crea_tabla_productos)
-            try:
-                # Recorre la lista de productos
-                my_params = {}
-                my_params["activo"] = True
-
-                my_headers = {}
-                my_headers["Content-Type"] = "application/json"
-                my_headers["X-API-Key"] = cls.API_KEY_ALMACEN
-
-                response = requests.get(
-                    cls.API_ALMACEN,
-                    params=my_params,
-                    headers=my_headers,
-                    timeout=10,
-                )
-
-                if response.status_code == 200:
-                    data = response.json()  # Obtener el contenido JSON de la respuesta
-                    if "articulos" in data:
-                        for articulo in data["articulos"]:
-                            try:
-                                parametros_producto = {"codigo": articulo["codigo"]}
-                                productos = cls.select_productos(parametros_producto)
-
-                                reponer = 2
-                                if productos:
-                                    producto = productos[0]
-                                    if producto["stock"] <= 2:
-                                        reponer = 2 - producto["stock"]
-                                    else:
-                                        reponer = 0
-
-                                if reponer > 0:
-                                    cls.reponer_producto_almacen(
-                                        articulo["codigo"], reponer, True
-                                    )
-                            except RuntimeError as error:
-                                traceback.print_exc()
-                            except ValueError as error:
-                                traceback.print_exc()
-            except RuntimeError as error:
-                traceback.print_exc()
-            except ValueError as error:
-                traceback.print_exc()
-        except RuntimeError as error:
+        except Exception as error:
             raise error
+
+    def _crear_tablas(self, consumidor_tienda, consumidor_tienda_key):
+        """
+        Incializa la base de datos y crea las tablas
+
+        :param consumidor_tienda(str) consumidor inicial
+        :param consumidor_tienda_key(str) api_key consumidor inicial
+        """
+        try:
+            db_operations = DatabaseTools()
+
+            query_crea_consumidores = (
+                "CREATE TABLE IF NOT EXISTS consumidores ("
+                "id TEXT PRIMARY KEY,"
+                "codigo TEXT UNIQUE NOT NULL,"
+                "descripcion TEXT,"
+                "activo BOOLEAN )"
+            )
+            db_operations.execute_query(query_crea_consumidores)
+
+            parametros = {}
+            parametros["codigo"] = consumidor_tienda_key
+            parametros["descripcion"] = consumidor_tienda
+            parametros["activo"] = True
+
+            db_operations.insert_into_table("consumidores", parametros)
+
+            query_crea_tabla_productos = (
+                "CREATE TABLE IF NOT EXISTS productos ("
+                "id TEXT PRIMARY KEY,"
+                "codigo TEXT UNIQUE NOT NULL,"
+                "descripcion TEXT,"
+                "precio DOUBLE,"
+                "stock INTEGER,"
+                "vendidos INTEGER,"
+                "activo BOOLEAN )"
+            )
+            db_operations.execute_query(query_crea_tabla_productos)
+        except Exception as error:
+            raise error
+
+    @classmethod
+    def _reponer_tienda_desde_alamcen(cls, min_stock):
+        """
+        Busca los productos activos del almacen y llama al método encargado
+        de cargarlo en la tienda
+
+        :param min_stock(int) stock mínimo de cada producto
+        """
+        try:
+            # Recorre la lista de productos
+            my_params = {}
+            my_params["activo"] = True
+
+            my_headers = {}
+            my_headers["Content-Type"] = "application/json"
+            my_headers["X-API-Key"] = cls.API_KEY_ALMACEN
+
+            response = requests.get(
+                cls.API_ALMACEN,
+                params=my_params,
+                headers=my_headers,
+                timeout=10,
+            )
+
+            if response.status_code == 200:
+                data = response.json()  # Obtener el contenido JSON de la respuesta
+                if "articulos" in data:
+                    for articulo in data["articulos"]:
+                        cls._check_producto_necesita_reponer(articulo, min_stock)
+        except Exception as e:
+            print(f"Error al sincronizar productos con almacén: {str(e)}")
+
+    @classmethod
+    def _check_producto_necesita_reponer(cls, articulo, min_stock):
+        """
+        Evalúa si es necesario reponer producto en la base de datos
+        
+        :param articulo(articulo)
+        :param min_stock(int) stock mínmo deseado
+        """
+        try:
+            parametros_producto = {"codigo": articulo["codigo"]}
+            productos = cls.select_productos(parametros_producto)
+
+            reponer = min_stock
+            if productos:
+                producto = productos[0]
+                if producto["stock"] <= min_stock:
+                    reponer = min_stock - producto["stock"]
+                else:
+                    reponer = 0
+
+            if reponer > 0:
+                cls.reponer_producto_almacen(articulo["codigo"], reponer, True)
+        except Exception as e:
+            print(f"Error al sicronizar el artículo: {str(e)}")
 
     @classmethod
     def select_productos(cls, parametros):
@@ -146,10 +175,8 @@ class TiendaTools:
             # Construir la consulta SQL dinámicamente
             table = "productos"
             return DatabaseTools().select_from_table(table, parametros)
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e
 
     @classmethod
     def crea_producto(cls, json_entrada):
@@ -163,10 +190,8 @@ class TiendaTools:
                 cls.ESTRUCTURA_PRODUCTO, json_entrada
             )
             return DatabaseTools().insert_into_table("productos", parametros)
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e
 
     @classmethod
     def actualiza_producto(cls, json_entrada, codigo):
@@ -185,10 +210,8 @@ class TiendaTools:
             return DatabaseTools().update_table(
                 "productos", parametros_update, parametros_where
             )
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e
 
     @classmethod
     def actualiza_entrada_stock(cls, json_articulo, codigo_articulo, cantidad):
@@ -221,10 +244,8 @@ class TiendaTools:
                 "productos", parametro_set, parametros_where
             )
 
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e
 
     @classmethod
     def vender_productos(cls, codigo, cantidad):
@@ -241,9 +262,7 @@ class TiendaTools:
 
             # Si el producto no existe lo creamos no activo y con precio 0
             if not productos:
-                raise ValueError(
-                        "El producto indicado no figura en nuestro sistema"
-                    )
+                raise ValueError("El producto indicado no figura en nuestro sistema")
             if productos:
                 producto = productos[0]
                 if not producto["activo"]:
@@ -260,7 +279,10 @@ class TiendaTools:
                     )
 
             # Si el producto existe le actualizamos el stock
-            parametro_set = f"stock = stock - {str(cantidad)}, vendidos = vendidos + {str(cantidad)}"
+            parametro_set = (
+                f"stock = stock - {str(cantidad)}, "
+                + f" vendidos = vendidos + {str(cantidad)}"
+            )
             parametros_where = {}
             parametros_where["codigo"] = codigo
 
@@ -269,10 +291,8 @@ class TiendaTools:
             )
 
             return "La venta se ha realizado correctamente"
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e
 
     @classmethod
     def reponer_producto_almacen(cls, codigo, cantidad, adapta_a_disponibilidad):
@@ -343,10 +363,8 @@ class TiendaTools:
                     ]
                 )
             raise ValueError("No hay disponible stock en este momento en el almacen")
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e
 
     @classmethod
     def check_consumidor_valido(cls, consumidor_key):
@@ -364,7 +382,5 @@ class TiendaTools:
             if not consumidor:
                 return False
             return True
-        except RuntimeError as error:
-            raise error
-        except ValueError as error:
-            raise error
+        except Exception as e:
+            raise e

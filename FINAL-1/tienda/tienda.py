@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=E0401
+# pylint: disable=W0718
 """
     Módulo API REST tienda
 """
@@ -33,9 +34,7 @@ def obtener_productos():
         results = TiendaTools().select_productos(parametros)
         # Devolvemos el resultado en un json
         return jsonify({"productos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -59,9 +58,7 @@ def obtener_producto(codigo_producto):
         results = TiendaTools().select_productos(parametros)
         # Devuelve el resultado en JSON
         return jsonify({"productos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -81,9 +78,7 @@ def crear_producto():
         # Devolvemos mensaje de éxito
         return jsonify({"productos": results})
 
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -103,9 +98,7 @@ def actualizar_producto(codigo_producto):
         results = TiendaTools().actualiza_producto(request.json, codigo_producto)
         # Devuelve el resultado en JSON
         return jsonify({"productos": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -144,9 +137,7 @@ def reponer_producto_almacen():
 
         return jsonify({"productos": results})
 
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
@@ -179,9 +170,7 @@ def vender_productos():
         )
         # Devolvemos el resultado en un json
         return jsonify({"mensaje": results})
-    except RuntimeError as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-    except ValueError as error:
+    except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
