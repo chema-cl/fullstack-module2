@@ -42,12 +42,12 @@ def obtener_articulos():
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
-@app.route("/api/articulos/<codigo_articulo>", methods=["GET"])
-def obtener_articulo(codigo_articulo):
+@app.route("/api/articulos/<codigo>", methods=["GET"])
+def obtener_articulo(codigo):
     """
     Método get para obtención de un artículo concreto
 
-    :param codigo_articulo(str) identificador del ártículo a devolver
+    :param codigo(str) identificador del ártículo a devolver
     """
     try:
         # Verifica la clave de API
@@ -57,7 +57,7 @@ def obtener_articulo(codigo_articulo):
 
         # inicializa el parámetro de la query
         parametros = {}
-        parametros["codigo"] = codigo_articulo
+        parametros["codigo"] = codigo
         # Lanza la búsqueda
         results = AlmacenTools().select_articulos(parametros)
         # Devuelve el resultado en JSON
@@ -86,12 +86,12 @@ def crear_articulo():
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
-@app.route("/api/articulos/<codigo_articulo>", methods=["PUT"])
-def actualizar_articulo(codigo_articulo):
+@app.route("/api/articulos/<codigo>", methods=["PUT"])
+def actualizar_articulo(codigo):
     """
     Método PUT para actualizar de un artículo concreto
 
-    :param codigo_articulo(str) identificador del ártículo a actualizar
+    :param codigo(str) identificador del ártículo a actualizar
     """
     try:
         # Verifica la clave de API
@@ -99,9 +99,29 @@ def actualizar_articulo(codigo_articulo):
         if not AlmacenTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
         # Lanza la actualización en base de datos
-        results = AlmacenTools().actualiza_articulo(request.json, codigo_articulo)
+        results = AlmacenTools().actualiza_articulo(request.json, codigo)
         # Devuelve el resultado en JSON
         return jsonify({"articulos": results})
+    except Exception as error:
+        return jsonify({"ERROR": f"{error.args[0]}"}), 400
+
+
+@app.route("/api/articulos/<codigo>", methods=["DELETE"])
+def borrar_articulo(codigo):
+    """
+    Método PUT para borrar de un artículo concreto
+
+    :param codigo(str) identificador del ártículo a actualizar
+    """
+    try:
+        # Verifica la clave de API
+        api_key = request.headers.get("X-API-Key")
+        if not AlmacenTools().check_consumidor_valido(api_key):
+            return jsonify({"ERROR": "Clave de API inválida"}), 401
+        # Lanza la actualización en base de datos
+        AlmacenTools().borrar_articulo(codigo)
+        # Devuelve el resultado en JSON
+        return jsonify({"articulos": {}})
     except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 

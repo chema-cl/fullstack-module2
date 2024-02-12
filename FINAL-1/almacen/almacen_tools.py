@@ -90,7 +90,6 @@ class AlmacenTools:
         except Exception as error:
             raise error
 
-
     def crea_articulo(self, json):
         """
         Crea un artículo dado un json
@@ -108,7 +107,6 @@ class AlmacenTools:
             return DatabaseTools().insert_into_table("articulos", parametros)
         except Exception as error:
             raise error
-
 
     def actualiza_articulo(self, json, codigo_articulo):
         """
@@ -134,6 +132,20 @@ class AlmacenTools:
         except Exception as error:
             raise error
 
+    @classmethod
+    def borrar_articulo(cls, codigo):
+        """
+        Borra un artículo dado su código
+
+        :param json_entrada(json) datos del artículo
+        :param codigo(codigo) identificador único del artículo
+        """
+        try:
+            parametros_where = {}
+            parametros_where["codigo"] = codigo
+            DatabaseTools().delete_table("articulos", parametros_where)
+        except Exception as e:
+            raise e
 
     def actualiza_entrada_stock(self, codigo, cantidad):
         """
@@ -151,7 +163,6 @@ class AlmacenTools:
             )
         except Exception as error:
             raise error
-
 
     def actualiza_salida_stock(self, codigo, cantidad):
         """
@@ -176,8 +187,8 @@ class AlmacenTools:
             if int(articulos[0]["stock"]) < int(cantidad):
                 stock = articulos[0]["stock"]
                 raise ValueError(
-                    "No disponemos de stock suficiente para atender su petición, " +
-                    f"stock disponible {stock}"
+                    "No disponemos de stock suficiente para atender su petición, "
+                    + f"stock disponible {stock}"
                 )
             if bool(articulos[0]["activo"]) is False:
                 raise ValueError(
@@ -191,7 +202,6 @@ class AlmacenTools:
 
         except Exception as error:
             raise error
-
 
     def check_consumidor_valido(self, consumidor_key):
         """

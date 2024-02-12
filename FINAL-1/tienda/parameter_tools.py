@@ -65,9 +65,9 @@ class ParameterTools:
                 if tipo is bool:
                     if isinstance(valor, bool):
                         return valor
-                    if valor.lower() == "true":
+                    if valor == 1 or valor.lower() == "true":
                         return True
-                    if valor.lower() == "false":
+                    if valor == 0 or valor.lower() == "false":
                         return False
                     raise ValueError("Valores booleanos solo permite True | False")
                 if tipo is int:

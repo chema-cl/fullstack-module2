@@ -144,7 +144,7 @@ class TiendaTools:
     def _check_producto_necesita_reponer(cls, articulo, min_stock):
         """
         Evalúa si es necesario reponer producto en la base de datos
-        
+
         :param articulo(articulo)
         :param min_stock(int) stock mínmo deseado
         """
@@ -200,7 +200,7 @@ class TiendaTools:
         Actualiza un artículo dado su código
 
         :param json_entrada(json) datos del artículo
-        :param codigo(codigo_producto) identificador único del artículo
+        :param codigo(codigo) identificador único del artículo
         """
         try:
             parametros_update = ParameterTools().carga_parametros_json(
@@ -211,6 +211,21 @@ class TiendaTools:
             return DatabaseTools().update_table(
                 "productos", parametros_update, parametros_where
             )
+        except Exception as e:
+            raise e
+
+    @classmethod
+    def borrar_producto(cls, codigo):
+        """
+        Borra un producto dado su código
+
+        :param json_entrada(json) datos del producto
+        :param codigo(codigo) identificador único del producto
+        """
+        try:
+            parametros_where = {}
+            parametros_where["codigo"] = codigo
+            DatabaseTools().delete_table("productos", parametros_where)
         except Exception as e:
             raise e
 

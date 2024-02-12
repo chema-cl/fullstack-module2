@@ -39,12 +39,12 @@ def obtener_productos():
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
-@app.route("/api/productos/<codigo_producto>", methods=["GET"])
-def obtener_producto(codigo_producto):
+@app.route("/api/productos/<codigo>", methods=["GET"])
+def obtener_producto(codigo):
     """
     Método get para obtención de un producto concreto
 
-    :param codigo_producto(str) identificador del ártículo a devolver
+    :param codigo(str) identificador del ártículo a devolver
     """
     try:
         # Verifica la clave de API
@@ -54,7 +54,7 @@ def obtener_producto(codigo_producto):
 
         # inicializa el parámetro de la query
         parametros = {}
-        parametros["codigo"] = codigo_producto
+        parametros["codigo"] = codigo
         # Lanza la búsqueda
         results = TiendaTools().select_productos(parametros)
         # Devuelve el resultado en JSON
@@ -83,12 +83,12 @@ def crear_producto():
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
-@app.route("/api/productos/<codigo_producto>", methods=["PUT"])
-def actualizar_producto(codigo_producto):
+@app.route("/api/productos/<codigo>", methods=["PUT"])
+def actualizar_producto(codigo):
     """
     Método PUT para actualizar de un producto concreto
 
-    :param codigo_producto(str) identificador del ártículo a actualizar
+    :param codigo(str) identificador del ártículo a actualizar
     """
     try:
         # Verifica la clave de API
@@ -96,9 +96,29 @@ def actualizar_producto(codigo_producto):
         if not TiendaTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
         # Lanza la actualización en base de datos
-        results = TiendaTools().actualiza_producto(request.json, codigo_producto)
+        results = TiendaTools().actualiza_producto(request.json, codigo)
         # Devuelve el resultado en JSON
         return jsonify({"productos": results})
+    except Exception as error:
+        return jsonify({"ERROR": f"{error.args[0]}"}), 400
+
+
+@app.route("/api/productos/<codigo>", methods=["DELETE"])
+def borrar_producto(codigo):
+    """
+    Método PUT para borrar de un producto concreto
+
+    :param codigo(str) identificador del ártículo a actualizar
+    """
+    try:
+        # Verifica la clave de API
+        api_key = request.headers.get("X-API-Key")
+        if not TiendaTools().check_consumidor_valido(api_key):
+            return jsonify({"ERROR": "Clave de API inválida"}), 401
+        # Lanza la actualización en base de datos
+        TiendaTools().borrar_producto(codigo)
+        # Devuelve el resultado en JSON
+        return jsonify({"productos": {}})
     except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
