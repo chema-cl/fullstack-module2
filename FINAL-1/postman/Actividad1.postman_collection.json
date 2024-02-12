@@ -1,0 +1,2898 @@
+{
+	"info": {
+		"_postman_id": "442163b6-135e-4aea-98ad-14b6388b9432",
+		"name": "Actividad1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14670358"
+	},
+	"item": [
+		{
+			"name": "almacen",
+			"item": [
+				{
+					"name": "Busca un artículo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos/:codigo",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos",
+								":codigo"
+							],
+							"variable": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								}
+							]
+						},
+						"description": "Busca una publicación existente"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borra un artículo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos/:codigo",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos",
+								":codigo"
+							],
+							"variable": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								}
+							]
+						},
+						"description": "Busca una publicación existente"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crea un artículo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(201)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"activo\": 1,\n    \"codigo\": \"BOLI\",\n    \"descripcion\": \"Boli\",\n    \"stock\": 100\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos"
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualiza artículo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"activo\": 1,\n    \"codigo\": \"BOLI\",\n    \"descripcion\": \"Boli 2\",\n    \"stock\": 100\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos/:arcticulo",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos",
+								":arcticulo"
+							],
+							"variable": [
+								{
+									"key": "arcticulo",
+									"value": "BOLI"
+								}
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Busca artículos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "GOMA",
+									"disabled": true
+								},
+								{
+									"key": "activo",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Busca todos las publicaciones y permite filtrarlas por usuario"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/posts?userId=<long>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "<long>",
+											"description": "Identificador usuario"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<long>\",\n    \"userId\": \"<long>\",\n    \"title\": \"<string>\",\n    \"body\": \"<string>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"userId\": \"<long>\",\n    \"title\": \"<string>\",\n    \"body\": \"<string>\"\n  }\n]"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts?userId=<long>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "<long>",
+											"description": "Identificador usuario"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts?userId=<long>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "<long>",
+											"description": "Identificador usuario"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Entrada stock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"SACAPUNTAS\",\n    \"descripcion\": \"Sacapuntas 2\",\n    \"stock_min\": 20,\n    \"stock\": 200,\n    \"activo\": \"true\"    \n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos/recepcion?codigo=BOLI&cantidad=20",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos",
+								"recepcion"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								},
+								{
+									"key": "cantidad",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Salida stock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_ALMACEN}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"SACAPUNTAS\",\n    \"descripcion\": \"Sacapuntas 2\",\n    \"stock_min\": 20,\n    \"stock\": 200,\n    \"activo\": \"true\"    \n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlAlmacen}}/api/articulos/salida?codigo=BOLI&cantidad=1",
+							"host": [
+								"{{baseUrlAlmacen}}"
+							],
+							"path": [
+								"api",
+								"articulos",
+								"salida"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								},
+								{
+									"key": "cantidad",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "tienda",
+			"item": [
+				{
+					"name": "Busca un producto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos/:codigo",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								":codigo"
+							],
+							"variable": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								}
+							]
+						},
+						"description": "Busca una publicación existente"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Borra un producto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos/:codigo",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								":codigo"
+							],
+							"variable": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								}
+							]
+						},
+						"description": "Busca una publicación existente"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts/:postId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts",
+										":postId"
+									],
+									"variable": [
+										{
+											"key": "postId"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Crea un producto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(201)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"activo\": 1,\n    \"codigo\": \"BOLI\",\n    \"descripcion\": \"Boli\",\n    \"precio\": 2.2,\n    \"stock\": 10,\n    \"vendidos\": 0\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos"
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Actualiza un producto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"activo\": 1,\n    \"codigo\": \"BOLI\",\n    \"descripcion\": \"Boli 44\",\n    \"precio\": 3.1,\n    \"stock\": 10,\n    \"vendidos\": 0\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos/:codigo",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								":codigo"
+							],
+							"variable": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								}
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Busca productos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "GOMA",
+									"disabled": true
+								},
+								{
+									"key": "activo",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Busca todos las publicaciones y permite filtrarlas por usuario"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/posts?userId=<long>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "<long>",
+											"description": "Identificador usuario"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<long>\",\n    \"userId\": \"<long>\",\n    \"title\": \"<string>\",\n    \"body\": \"<string>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"userId\": \"<long>\",\n    \"title\": \"<string>\",\n    \"body\": \"<string>\"\n  }\n]"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts?userId=<long>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "<long>",
+											"description": "Identificador usuario"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/posts?userId=<long>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "<long>",
+											"description": "Identificador usuario"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Retirar de almacen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"SACAPUNTAS\",\n    \"descripcion\": \"Sacapuntas 2\",\n    \"stock_min\": 20,\n    \"stock\": 200,\n    \"activo\": \"true\"    \n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos/reponer?codigo=BOLI&cantidad=1&adapta_a_disponibilidad=false",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"reponer"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								},
+								{
+									"key": "cantidad",
+									"value": "1"
+								},
+								{
+									"key": "adapta_a_disponibilidad",
+									"value": "false"
+								}
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Venta producto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"OK - Respuesta\", function () {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"pm.test(\"OK - Cabecera JSON\", function () {\r",
+									"    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+									"    pm.expect(contentType).to.include(\"application/json\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{API_KEY_TIENDA}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "X-API-Key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"SACAPUNTAS\",\n    \"descripcion\": \"Sacapuntas 2\",\n    \"stock_min\": 20,\n    \"stock\": 200,\n    \"activo\": \"true\"    \n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrlTienda}}/api/productos/venta?codigo=BOLI&cantidad=1",
+							"host": [
+								"{{baseUrlTienda}}"
+							],
+							"path": [
+								"api",
+								"productos",
+								"venta"
+							],
+							"query": [
+								{
+									"key": "codigo",
+									"value": "BOLI"
+								},
+								{
+									"key": "cantidad",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Crear una publicación"
+					},
+					"response": [
+						{
+							"name": "Operación exitosa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}"
+						},
+						{
+							"name": "Entrada incorrecta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Recurso no encontrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error de validación",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"userId\": \"<long>\",\n  \"title\": \"<string>\",\n  \"body\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/posts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"posts"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
