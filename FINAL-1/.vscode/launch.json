@@ -8,8 +8,9 @@
             "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "program": "${workspaceFolder}/tienda/tienda.py",
+            "console": "integratedTerminal",
+            "args" :  ["--config", "${workspaceFolder}/tienda/config.yml", "--key", "16cd4e0b6209bfc1d571db74ed7f4519"]
         }
     ]
 }

@@ -63,12 +63,18 @@ class DatabaseTools:
             cursor = self.obtener_conexion().cursor()
             cursor.execute(sql_query, params)
 
+            # Obtebemos todas las Columnas
             columnas = [
-                descripcion[0] for descripcion in cursor.description
-            ]  # Obtener nombres de las columnas
+                descripcion[0]
+                for descripcion in cursor.description
+                # Exluimos la columna id, no queremos de
+                # if descripcion[0] != "id"
+            ]  
+            # Crear un diccionario para cada fila
             results = [
                 dict(zip(columnas, fila)) for fila in cursor.fetchall()
-            ]  # Crear un diccionario para cada fila
+            ]  
+
             self.conn.close()
 
             return results

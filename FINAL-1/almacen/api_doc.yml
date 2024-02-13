@@ -5,9 +5,88 @@ info:
     API Almacén
   version: 1.0.0
 servers:
-  - url: /
+  - url: http://localhost:5000/
 tags:
   - name: articulo
     description: Altículos del almacén
   - name: consumidor
     description: Consumidores de la aplicación
+paths:
+  /api/articulos:
+    get:
+      tags:
+        - post
+      summary: Busca artículos
+      description: Busca todos los artículos y permite filtros por código y activo
+      operationId: getposts
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del artículo
+          required: false
+          schema:
+            type: string
+        - name: activo
+          in: query
+          description: Indicador de artículo activo
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/post'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+components:
+  schemas:
+    articulo:
+      type: object
+      description: Artículo de almaceén
+      properties:
+        id:
+          description: "Identificador interno"
+          type: string
+          example: "da3fc73f-b4a9-4533-92cb-b8dbd70a8f8a"
+        codigo:
+          description: "Codigo del artículo"
+          type: string
+          example: "BOLI"
+        descripcion:
+          description: "Descripción del artículo"
+          type: string
+          example: "Boligrafo"
+        stock:
+          description: "Stock en almacén"
+          type: int
+          example: 4
+        activo:
+          description: "Indicador de activo"
+          type: boolean
+          example: True
+    consumidor:
+      type: object
+      description: Consumidor
+      properties:
+        id:
+          description: "Identificador interno"
+          type: string
+          example: da3fc73f-b4a9-4533-92cb-b8dbd70a8f8a
+        codigo:
+          description: "API-KEY del consumidor"
+          type: string
+          example: "da3f345-b4a9-4345-92hg-basef40a8f66"
+        descripcion:
+          description: "Nombre del consumidor"
+          type: string
+          example: "Consumidor tienda"
+        activo:
+          description: "Indicador de activo"
+          type: boolean
+          example: True

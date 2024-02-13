@@ -62,7 +62,6 @@ class TiendaTools:
                     config["basedatos"]["consumidor_tienda"],
                     config["basedatos"]["consumidor_tienda_key"],
                 )
-
             cls._reponer_tienda_desde_alamcen(2)
 
         except Exception as error:
@@ -206,6 +205,23 @@ class TiendaTools:
             parametros_update = ParameterTools().carga_parametros_json(
                 cls.ESTRUCTURA_PRODUCTO, json_entrada
             )
+            parametros_where = {}
+            parametros_where["codigo"] = codigo
+            return DatabaseTools().update_table(
+                "productos", parametros_update, parametros_where
+            )
+        except Exception as e:
+            raise e
+
+    @classmethod
+    def actualiza_producto_parametros(cls, codigo, parametros_update):
+        """
+        Actualiza un artículo dado su código
+
+        :param parametros_update(lista clave valor a acualizar) datos del artículo
+        :param codigo(codigo) identificador único del artículo
+        """
+        try:
             parametros_where = {}
             parametros_where["codigo"] = codigo
             return DatabaseTools().update_table(
@@ -383,12 +399,23 @@ class TiendaTools:
             raise e
 
     @classmethod
+    def crear_consumidor(cls, parametros):
+        """
+        Crear un consumidor de la tienda
+        """
+        try:
+            return DatabaseTools().insert_into_table("consumidores", parametros)
+        except Exception as e:
+            raise e
+
+    @classmethod
     def check_consumidor_valido(cls, consumidor_key):
         """
         Comprueba si el código de un consumidor api_key es válido
 
         :param consumidor_key(str) api_key consumidor
         """
+        # return True
         try:
             parametros = {}
             parametros["codigo"] = consumidor_key

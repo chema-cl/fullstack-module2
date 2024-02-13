@@ -6,6 +6,7 @@
     Módulo API REST almacen
 """
 import argparse
+import secrets
 from flask import Flask, request, jsonify, send_from_directory
 from flask_swagger_ui import get_swaggerui_blueprint
 from almacen_tools import AlmacenTools
@@ -142,6 +143,40 @@ def borrar_articulo(codigo):
         AlmacenTools().borrar_articulo(codigo)
         # Devuelve el resultado en JSON
         return jsonify({"articulos": {}})
+    except Exception as error:
+        return jsonify({"ERROR": f"{error.args[0]}"}), 400
+
+
+@app.route("/api/consumidores", methods=["POST"])
+def crear_consumidor():
+    """
+    Método POST para la creación de un producto
+    """
+    try:
+        # Verifica la clave de API
+        api_key = request.headers.get("X-API-Key")
+        if not AlmacenTools().check_consumidor_valido(api_key):
+            return jsonify({"ERROR": "Clave de API inválida"}), 401
+
+        # Verificamos que llega
+        consumidor = request.args.get("consumidor")
+        if consumidor is None:
+            return (
+                jsonify({"ERROR": "Parámetro consumidor no recibido"}),
+                401,
+            )
+        # Creamos consumidor
+        parametros = {}
+        parametros["codigo"] = str(secrets.token_hex(20))
+        parametros["descripcion"] = consumidor
+        parametros["activo"] = True
+        print(parametros)
+
+        results = AlmacenTools().crear_consumidor(parametros)
+
+        # Devolvemos mensaje de éxito
+        return jsonify({"consumidores": results}), 201
+
     except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 

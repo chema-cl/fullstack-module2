@@ -220,3 +220,13 @@ class AlmacenTools:
             return True
         except Exception as error:
             raise error
+
+    @classmethod
+    def crear_consumidor(cls, parametros):
+        """
+        Crear un consumidor de la tienda
+        """
+        try:
+            return DatabaseTools().insert_into_table("consumidores", parametros)
+        except Exception as e:
+            raise e

@@ -11,5 +11,214 @@ tags:
     description: Producto de la tienda
   - name: consumidor
     description: Consumidores de la aplicación
+paths:
+  /api/productos:
+    get:
+      tags:
+        - producto
+      summary: Busca productos
+      description: Busca todos los producto y permite filtros por código y activo
+      operationId: buscar_productos
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del producto
+          required: false
+          schema:
+            type: string
+        - name: activo
+          in: query
+          description: Indicador de producto activo
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+    post:
+      tags:
+        - producto
+      summary: Crea un producto
+      description: Crea un producto
+      operationId: crear_producto
+      requestBody:
+        description: Producto a crear
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/producto'
+        required: true
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
 
-    
+  /api/productos/{codigo}:
+    get:
+      tags:
+        - producto
+      summary: Busca un producto
+      description: Busca todos los producto y permite filtros por código y activo
+      operationId: busca_producto      
+      parameters:
+        - name: codigo
+          in: path
+          description: Código del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+    put:
+      tags:
+        - producto
+      summary: Actualiza un producto
+      description: Actualiza un producto
+      operationId: actualiza_producto
+      parameters:
+        - name: codigo
+          in: path
+          description: Código del producto
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Producto a actualizar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/producto'
+        required: true
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - producto
+      summary: Borra un producto
+      description: Borra producto a partir del código
+      operationId: borra_producto
+      parameters:
+        - name: codigo
+          in: path
+          description: Código del producto
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+        
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY 
+  schemas:
+    producto:
+      type: object
+      description: Producto de tienda
+      properties:
+        id:
+          description: "Identificador interno"
+          type: string
+          example: "da3fc73f-b4a9-4533-92cb-b8dbd70a8f8a"
+        codigo:
+          description: "Codigo del producto"
+          type: string
+          example: "BOLI"
+        descripcion:
+          description: "Descripción del producto"
+          type: string
+          example: "Boligrafo"
+        precio:
+          description: "Precio del producto"
+          type: double
+          example: 3.4
+        stock:
+          description: "Stock en tienda"
+          type: int
+          example: 4
+        vendidos:
+          description: "Unidades vendidas"
+          type: int
+          example: 2
+        activo:
+          description: "Indicador de activo"
+          type: boolean
+          example: True
+    consumidor:
+      type: object
+      description: Consumidor
+      properties:
+        id:
+          description: "Identificador interno"
+          type: string
+          example: da3fc73f-b4a9-4533-92cb-b8dbd70a8f8a
+        codigo:
+          description: "API-KEY del consumidor"
+          type: string
+          example: "da3f345-b4a9-4345-92hg-basef40a8f66"
+        descripcion:
+          description: "Nombre del consumidor"
+          type: string
+          example: "Consumidor tienda"
+        activo:
+          description: "Indicador de activo"
+          type: boolean
+          example: True
