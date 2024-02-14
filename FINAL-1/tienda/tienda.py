@@ -6,9 +6,9 @@
     Módulo API REST tienda
 """
 import argparse
+import secrets
 from flask import Flask, request, jsonify, send_from_directory
 from flask_swagger_ui import get_swaggerui_blueprint
-import secrets
 from tienda_tools import TiendaTools
 from parameter_tools import ParameterTools
 
