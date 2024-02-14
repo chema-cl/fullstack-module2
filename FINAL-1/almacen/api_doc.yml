@@ -5,7 +5,7 @@ info:
     API Almacén
   version: 1.0.0
 servers:
-  - url: http://localhost:5000/
+  - url: /
 tags:
   - name: articulo
     description: Altículos del almacén
@@ -15,20 +15,21 @@ paths:
   /api/articulos:
     get:
       tags:
-        - post
-      summary: Busca artículos
-      description: Busca todos los artículos y permite filtros por código y activo
-      operationId: getposts
+        - articulo
+      summary: Busca articulos
+      description: Busca todos los articulos y permite filtros por código y activo
+      operationId: buscar_articulos
       parameters:
         - name: codigo
           in: query
-          description: Código del artículo
+          description: Código del articulo
           required: false
           schema:
             type: string
         - name: activo
           in: query
-          description: Indicador de artículo activo
+          description: Indicador de articulo activo
+          required: false
           schema:
             type: boolean
       responses:
@@ -39,12 +40,235 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/post'          
+                  $ref: '#/components/schemas/articulo'          
         '400':
           description: Entrada incorrecta
         '404':
           description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+    post:
+      tags:
+        - articulo
+      summary: Crea un articulo
+      description: Crea un articulo
+      operationId: crear_articulo
+      requestBody:
+        description: Artículo a crear
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/articulo'
+        required: true
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/articulo'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+
+  /api/articulos/{codigo}:
+    get:
+      tags:
+        - articulo
+      summary: Busca un articulo
+      description: Busca un articulo
+      operationId: busca_articulo      
+      parameters:
+        - name: codigo
+          in: path
+          description: Código del articulo
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/articulo'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+    put:
+      tags:
+        - articulo
+      summary: Actualiza un articulo
+      description: Actualiza un articulo
+      operationId: actualiza_articulo
+      parameters:
+        - name: codigo
+          in: path
+          description: Código del articulo
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Artículo a actualizar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/articulo'
+        required: true
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/articulo'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - articulo
+      summary: Borra un articulo
+      description: Borra articulo a partir del código
+      operationId: borra_articulo
+      parameters:
+        - name: codigo
+          in: path
+          description: Código del articulo
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+  /api/consumidores:
+    post:
+      tags:
+        - consumidor
+      summary: Crea un consumidor
+      description: Crea un consumidor
+      operationId: crear_consumiudor
+      parameters:
+        - name: consumidor
+          in: query
+          description: nombre del consumidor que deseamos crear
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/consumidor'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+  /api/articulos/recepcion:
+    put:
+      tags:
+        - articulo
+      summary: Entrada de artículos
+      description: Registra la entrada de un artículo e incrementa el stock
+      operationId: recepcionar_articulos
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del articulo
+          required: true
+          schema:
+            type: string
+        - name: cantidad
+          in: query
+          description: Cantidad que entra del artículo
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/articulo'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+  /api/articulos/salida:
+    put:
+      tags:
+        - articulo
+      summary: Salida de artículos
+      description: Registra la salida de un artículo y decrementa su stock
+      operationId: salida_articulos
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del articulo
+          required: true
+          schema:
+            type: string
+        - name: cantidad
+          in: query
+          description: Cantidad que entra del artículo
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/articulo'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY 
   schemas:
     articulo:
       type: object
@@ -64,7 +288,8 @@ components:
           example: "Boligrafo"
         stock:
           description: "Stock en almacén"
-          type: int
+          type: integer
+          format: int32
           example: 4
         activo:
           description: "Indicador de activo"

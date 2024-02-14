@@ -124,39 +124,6 @@ def actualizar_producto(codigo):
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
-@app.route("/api/productos/precio", methods=["PUT"])
-def actualizar_precio():
-    """
-    Método PUT para modificar el precio
-    """
-    try:
-        # Verifica la clave de API
-        api_key = request.headers.get("X-API-Key")
-        if not TiendaTools().check_consumidor_valido(api_key):
-            return jsonify({"ERROR": "Clave de API inválida"}), 401
-        # Lanza la actualización en base de datos
-
-        # recogemos los parámetros
-        codigo = request.args.get("codigo")
-        precio = request.args.get("precio")
-        activo = request.args.get("activo")
-        if precio is None or codigo is None:
-            return (
-                jsonify({"ERROR": "Los parámetros precio y codigo son obligatorios"}),
-                401,
-            )
-        parametros_update = {}
-        parametros_update["precio"] = precio
-        if activo is not None:
-            parametros_update["activo"] = activo
-
-        results = TiendaTools().actualiza_producto_parametros(codigo, parametros_update)
-        # Devuelve el resultado en JSON
-        return jsonify({"productos": results})
-    except Exception as error:
-        return jsonify({"ERROR": f"{error.args[0]}"}), 400
-
-
 @app.route("/api/productos/<codigo>", methods=["DELETE"])
 def borrar_producto(codigo):
     """
@@ -222,16 +189,11 @@ def reponer_producto_almacen():
         if not TiendaTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
 
-        parametros_request = {
-            "codigo": str,
-            "cantidad": int,
-            "adapta_a_disponibilidad": bool,
-        }
-        # Carga los parámetros recibidos en la llamada
-        parametros = ParameterTools().carga_parametros_request(
-            parametros_request, request
-        )
-        if parametros.get("codigo") is None or parametros.get("cantidad") is None:
+        # recogemos los parámetros
+        cantidad = request.args.get("cantidad")
+        codigo = request.args.get("codigo")
+        adapta_a_disponibilidad = request.args.get("adapta_a_disponibilidad")
+        if codigo is None or cantidad is None:
             return (
                 jsonify({"ERROR": "Parámetros codigo y cantidad no recibidos"}),
                 401,
@@ -239,9 +201,9 @@ def reponer_producto_almacen():
 
         # Lanza la actualización en base de datos
         results = TiendaTools().reponer_producto_almacen(
-            parametros["codigo"],
-            parametros["cantidad"],
-            parametros["adapta_a_disponibilidad"],
+            codigo,
+            cantidad,
+            adapta_a_disponibilidad,
         )
 
         return jsonify({"productos": results})
@@ -250,7 +212,7 @@ def reponer_producto_almacen():
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 
 
-@app.route("/api/productos/venta", methods=["PUT"])
+@app.route("/api/productos/vender", methods=["PUT"])
 def vender_productos():
     """
     Método put para vender productos
@@ -261,24 +223,52 @@ def vender_productos():
         if not TiendaTools().check_consumidor_valido(api_key):
             return jsonify({"ERROR": "Clave de API inválida"}), 401
 
-        # Posibles parámetros que se puede recibir para la query
-        parametros_request = {"codigo": str, "cantidad": int}
-        # Carga los parámetros recibidos en la llamada
-        parametros = ParameterTools().carga_parametros_request(
-            parametros_request, request
-        )
-        if parametros.get("codigo") is None or parametros.get("cantidad") is None:
+        # recogemos los parámetros
+        cantidad = request.args.get("cantidad")
+        codigo = request.args.get("codigo")
+        if codigo is None or cantidad is None:
             return (
                 jsonify({"ERROR": "Parámetros codigo y cantidad no recibidos"}),
                 401,
             )
-
+        cantidad=int(cantidad)
         # Lanza la actualización en base de datos
-        results = TiendaTools().vender_productos(
-            parametros["codigo"], parametros["cantidad"]
-        )
+        results = TiendaTools().vender_productos(codigo, cantidad)
         # Devolvemos el resultado en un json
         return jsonify({"mensaje": results})
+    except Exception as error:
+        return jsonify({"ERROR": f"{error.args[0]}"}), 400
+
+
+@app.route("/api/productos/precio", methods=["PUT"])
+def actualizar_precio():
+    """
+    Método PUT para modificar el precio
+    """
+    try:
+        # Verifica la clave de API
+        api_key = request.headers.get("X-API-Key")
+        if not TiendaTools().check_consumidor_valido(api_key):
+            return jsonify({"ERROR": "Clave de API inválida"}), 401
+        # Lanza la actualización en base de datos
+
+        # recogemos los parámetros
+        codigo = request.args.get("codigo")
+        precio = request.args.get("precio")
+        activo = request.args.get("activo")
+        if precio is None or codigo is None:
+            return (
+                jsonify({"ERROR": "Los parámetros precio y codigo son obligatorios"}),
+                401,
+            )
+        parametros_update = {}
+        parametros_update["precio"] = precio
+        if activo is not None:
+            parametros_update["activo"] = activo
+
+        results = TiendaTools().actualiza_producto_parametros(codigo, parametros_update)
+        # Devuelve el resultado en JSON
+        return jsonify({"productos": results})
     except Exception as error:
         return jsonify({"ERROR": f"{error.args[0]}"}), 400
 

@@ -2749,7 +2749,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlTienda}}/api/productos/precio?codigo=BOLI&precio=3.3&activo=false",
+							"raw": "{{baseUrlTienda}}/api/productos/precio?precio=3.3&activo=true&codigo=BOLI",
 							"host": [
 								"{{baseUrlTienda}}"
 							],
@@ -2760,16 +2760,16 @@
 							],
 							"query": [
 								{
-									"key": "codigo",
-									"value": "BOLI"
-								},
-								{
 									"key": "precio",
 									"value": "3.3"
 								},
 								{
 									"key": "activo",
-									"value": "false"
+									"value": "true"
+								},
+								{
+									"key": "codigo",
+									"value": "BOLI"
 								}
 							]
 						},
@@ -3149,7 +3149,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"codigo\": \"SACAPUNTAS\",\n    \"descripcion\": \"Sacapuntas 2\",\n    \"stock_min\": 20,\n    \"stock\": 200,\n    \"activo\": \"true\"    \n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -3158,7 +3158,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlTienda}}/api/productos/reponer?codigo=BOLI&cantidad=1&adapta_a_disponibilidad=false",
+							"raw": "{{baseUrlTienda}}/api/productos/reponer?cantidad=2&adapta_a_disponibilidad=false&codigo=BOLI",
 							"host": [
 								"{{baseUrlTienda}}"
 							],
@@ -3169,16 +3169,16 @@
 							],
 							"query": [
 								{
-									"key": "codigo",
-									"value": "BOLI"
-								},
-								{
 									"key": "cantidad",
-									"value": "1"
+									"value": "2"
 								},
 								{
 									"key": "adapta_a_disponibilidad",
 									"value": "false"
+								},
+								{
+									"key": "codigo",
+									"value": "BOLI"
 								}
 							]
 						},
@@ -3392,7 +3392,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"codigo\": \"SACAPUNTAS\",\n    \"descripcion\": \"Sacapuntas 2\",\n    \"stock_min\": 20,\n    \"stock\": 200,\n    \"activo\": \"true\"    \n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -3401,23 +3401,23 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrlTienda}}/api/productos/venta?codigo=BOLI&cantidad=1",
+							"raw": "{{baseUrlTienda}}/api/productos/vender?cantidad=1&codigo=BOLI",
 							"host": [
 								"{{baseUrlTienda}}"
 							],
 							"path": [
 								"api",
 								"productos",
-								"venta"
+								"vender"
 							],
 							"query": [
 								{
-									"key": "codigo",
-									"value": "BOLI"
-								},
-								{
 									"key": "cantidad",
 									"value": "1"
+								},
+								{
+									"key": "codigo",
+									"value": "BOLI"
 								}
 							]
 						},

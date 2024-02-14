@@ -17,7 +17,7 @@ paths:
       tags:
         - producto
       summary: Busca productos
-      description: Busca todos los producto y permite filtros por código y activo
+      description: Busca todos los productos y permite filtros por código y activo
       operationId: buscar_productos
       parameters:
         - name: codigo
@@ -81,7 +81,7 @@ paths:
       tags:
         - producto
       summary: Busca un producto
-      description: Busca todos los producto y permite filtros por código y activo
+      description: Busca un producto
       operationId: busca_producto      
       parameters:
         - name: codigo
@@ -162,7 +162,156 @@ paths:
           description: Recurso no encontrado
       security:
         - ApiKeyAuth: []
-        
+  /api/consumidores:
+    post:
+      tags:
+        - consumidor
+      summary: Crea un consumidor
+      description: Crea un consumidor
+      operationId: crear_consumiudor
+      parameters:
+        - name: consumidor
+          in: query
+          description: nombre del consumidor que deseamos crear
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/consumidor'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+  /api/productos/precio:  
+    put:
+      tags:
+        - producto
+      summary: Actualiza el precio de un producto
+      description: permite actualizar el precio y activo de un producto
+      operationId: actualzia_precio
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del producto
+          required: true
+          schema:
+            type: string
+        - name: precio
+          in: query
+          description: Nuevo precio del producto
+          required: true
+          schema:
+            type: number
+            format: float
+        - name: activo
+          in: query
+          description: Activo
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+  /api/productos/reponer:  
+    put:
+      tags:
+        - producto
+      summary: Reponer un producto 
+      description: repone un producto conectándose al API almacén
+      operationId: reponer_producto
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del producto
+          required: true
+          schema:
+            type: string
+        - name: cantidad
+          in: query
+          description: Cantidad a reponer
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: adapta_a_disponibilidad
+          in: query
+          description: Si no hay suficiente stock, repongo el que pueda
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+  /api/productos/vender:  
+    put:
+      tags:
+        - producto
+      summary: Reponer un producto 
+      description: repone un producto conectándose al API almacén
+      operationId: vender_producto
+      parameters:
+        - name: codigo
+          in: query
+          description: Código del producto
+          required: true
+          schema:
+            type: string
+        - name: cantidad
+          in: query
+          description: Cantidad a cender
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/producto'          
+        '400':
+          description: Entrada incorrecta
+        '404':
+          description: Recurso no encontrado
+      security:
+        - ApiKeyAuth: []
+
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -188,15 +337,18 @@ components:
           example: "Boligrafo"
         precio:
           description: "Precio del producto"
-          type: double
+          type: number
+          format: float
           example: 3.4
         stock:
           description: "Stock en tienda"
-          type: int
+          type: integer
+          format: int32
           example: 4
         vendidos:
           description: "Unidades vendidas"
-          type: int
+          type: integer
+          format: int32
           example: 2
         activo:
           description: "Indicador de activo"

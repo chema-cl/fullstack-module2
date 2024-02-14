@@ -415,7 +415,7 @@ class TiendaTools:
 
         :param consumidor_key(str) api_key consumidor
         """
-        # return True
+        #return True
         try:
             parametros = {}
             parametros["codigo"] = consumidor_key
