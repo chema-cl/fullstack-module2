@@ -1,6 +1,6 @@
 api_almacen: http://localhost:5000/api/articulos
 api_almacen_comprar: http://localhost:5000/api/articulos/salida
 basedatos:
-  path: database/tienda.db
+  path: .\database\tienda.db
   consumidor_tienda: tienda
   consumidor_tienda_key: 348b7c785a8c45ef15c5e2b44072dc7a

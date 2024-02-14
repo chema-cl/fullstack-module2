@@ -1,5 +1,5 @@
 basedatos:
-  path: database/almacen.db
+  path: .\database\almacen.db
   consumidor_almacen: almacen
   consumidor_almacen_key: 16cd4e0b6209bfc1d571db74ed7f4519
   articulos:

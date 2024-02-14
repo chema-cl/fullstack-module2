@@ -69,11 +69,9 @@ class DatabaseTools:
                 for descripcion in cursor.description
                 # Exluimos la columna id, no queremos de
                 # if descripcion[0] != "id"
-            ]  
+            ]
             # Crear un diccionario para cada fila
-            results = [
-                dict(zip(columnas, fila)) for fila in cursor.fetchall()
-            ]  
+            results = [dict(zip(columnas, fila)) for fila in cursor.fetchall()]
 
             self.conn.close()
 
