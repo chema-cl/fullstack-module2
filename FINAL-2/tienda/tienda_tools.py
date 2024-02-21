@@ -348,7 +348,6 @@ class TiendaTools:
                 return cls.reponer_producto_almacen(
                     results[0], cantidad, adapta_a_disponibilidad
                 )
-            # TODO: El producto no existe en mi base de datos, debo comprobar si existe en el almacen
             raise ValueError("El producto indicado no figura en nuestro sistema")
 
         except Exception as e:
