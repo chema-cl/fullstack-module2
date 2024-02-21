@@ -1,0 +1,4 @@
+basedatos:
+  -consumidor_almacen: consumidor_storehouse
+  -consumidor_almacen_key: 555555555
+  -path: DB/storehouse_db.db

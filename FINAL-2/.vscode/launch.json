@@ -1,0 +1,16 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/tienda/tienda.py",
+            "console": "integratedTerminal",
+            "args" :  ["--config", "${workspaceFolder}/tienda/config.yml", "--key", "16cd4e0b6209bfc1d571db74ed7f4519"]
+        }
+    ]
+}

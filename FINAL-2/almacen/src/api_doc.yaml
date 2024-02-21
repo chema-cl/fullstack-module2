@@ -1,0 +1,331 @@
+openapi: 3.0.3
+info:
+  title: Swagger Activdad Final Almacen
+  description:
+    Diseño y desarrollo de APIs Almacen
+  version: 1.0.0
+tags:
+  - name: storehouse
+    description: Calls to api almacen
+  - name: consumer
+    description: Calls to api consumer
+paths:
+  /storehouse/services/products:
+    get:
+      tags:
+        - storehouse
+      summary: Get all products
+      description: Get all products resources
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/product'
+        '400':
+          description: Invalid status value
+        '401':
+          description: Unathorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+  /storehouse/services/product:
+    post:
+      tags:
+        - storehouse
+      summary: Add a new product
+      description: Add a new product to almacen
+      requestBody:
+        description: Create a new product in the storehouse
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newProduct'
+        required: true
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful operation
+        '201':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unathorized
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+  /storehouse/services/product/{productId}:
+    get:
+      tags:
+        - storehouse
+      summary: Get one product
+      description: Get one product by productId
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/product'
+        '400':
+          description: Invalid status value
+        '401':
+          description: Unathorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+    delete:
+      tags:
+        - storehouse
+      summary: Delete one product
+      description: Delete one product by productId
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to DELETE
+          required: true
+          schema:
+            type: integer
+            format: int64
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid status value
+        '401':
+          description: Unathorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+    put:
+      tags:
+        - storehouse
+      summary: Update a product
+      description: Update a product by productId
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to UPDATE
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update a product in the storehouse
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateProduct'
+        required: true
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful operation
+        '201':
+          description: Update operation
+        '204':
+          description: No Content
+        '400':
+          description: Invalid input
+        '401':
+          description: Unathorized
+        '404':
+          description: Not Found
+        '422':
+          description: Validation exception
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+  /storehouse/services/product/{productId}/decrease:
+    put:
+      tags:
+        - storehouse
+      summary: Update a product to reduce quantity
+      description: Update a product by productId
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to UPDATE
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update quantity product in the storehouse
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/decreaseProduct'
+        required: true
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful operation
+        '201':
+          description: Update operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unathorized
+        '404':
+          description: Not Found
+        '422':
+          description: Validation exception
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+  /storehouse/services/product/{productId}/increase:
+    put:
+      tags:
+        - storehouse
+      summary: Update a product to increase quantity
+      description: Update a product by productId
+      parameters:
+        - name: productId
+          in: path
+          description: ID of product to UPDATE
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update quantity product in the storehouse
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/increaseProduct'
+        required: true
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful operationl
+        '201':
+          description: Update operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unathorized
+        '404':
+          description: Not Found
+        '422':
+          description: Validation exception
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+  /storehouse/services/consumer:
+    post:
+      tags:
+        - consumer
+      summary: Add a new consumer
+      description: Add a new consumer
+      requestBody:
+        description: Create a new consumer in the table
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/consumer'
+        required: true
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Successful operation
+        '201':
+          description: Successful operation
+        '400':
+          description: Invalid input
+        '401':
+          description: Unathorized
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+components:
+  schemas:
+    product:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          quantity:
+            type: integer
+    newProduct:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: integer
+    updateProduct:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          quantity:
+            type: integer
+          available:
+            type: boolean
+    decreaseProduct:
+      type: object
+      properties:
+        decrease_quantity:
+          type: integer
+    increaseProduct:
+      type: object
+      properties:
+        increase_quantity:
+          type: integer
+    consumer:
+      type: object
+      properties:
+        consumer_name:
+          type: string
+        consumer_key:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: api-key
+
